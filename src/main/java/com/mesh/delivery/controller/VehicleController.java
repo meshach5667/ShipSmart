@@ -34,7 +34,7 @@ public class VehicleController {
         return  ResponseEntity.ok(vehicle);
     }
     @PostMapping("add-item-to-vehicle/{plateNumber}/item/{itemId}")
-    ResponseEntity<Vehicle> addItemToVehicle(@PathVariable String plateNumber, @PathVariable Long itemId){
+    ResponseEntity<Vehicle> addItemToVehicle(@PathVariable String plateNumber, @PathVariable Item itemId){
         Item item = ItemService.getItemById(itemId);
         Vehicle vehicle = vehicleService.getVehicleByPlateNumber(plateNumber);
         vehicle.getItems().add(item);
