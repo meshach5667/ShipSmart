@@ -1,4 +1,4 @@
-package com.controller;
+package com.mesh.delivery.controller;
 
 import com.mesh.delivery.Entity.Item;
 import com.mesh.delivery.service.ItemService;
