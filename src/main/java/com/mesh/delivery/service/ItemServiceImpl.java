@@ -3,7 +3,7 @@ package com.mesh.delivery.service;
 import com.mesh.delivery.Entity.Item;
 import com.mesh.delivery.repositorys.ItemsRepository;
 
-public class ItemServiceImpl implements ItemServices {
+public class ItemServiceImpl implements ItemService {
      private ItemsRepository itemRepository;
 
     @Override
