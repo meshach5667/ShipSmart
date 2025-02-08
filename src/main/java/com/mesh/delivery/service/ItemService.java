@@ -2,17 +2,13 @@ package com.mesh.delivery.service;
 
 import com.mesh.delivery.Entity.Item;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 
 public interface ItemService {
-
-    static Item getItemById(Item itemId) {
-        return itemId;
-    }
-
-    Item createItem();
-
     Item createItem(Item item);
-
+    Item getItemById(Long id);
+    List<Item> getAllItems();
     void deleteItem(Long id);
 }
+

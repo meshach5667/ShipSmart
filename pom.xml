@@ -33,6 +33,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <source>runtime</source>
             <version>42.7.2</version>
         </dependency>
 

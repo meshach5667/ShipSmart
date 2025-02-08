@@ -1,13 +1,10 @@
 package com.mesh.delivery.Entity;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -16,6 +13,10 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    
+    @Version
+    private Long version = 0L; // Optimistic locking field
+
     private String name;
     private String plateNumber;
     private String status;
@@ -25,13 +26,15 @@ public class Vehicle {
     private float totalWeight;
 
     @OneToMany
-    private java.util.List<Item> items;
+    private List<Item> items;
 
     public Vehicle() {}
 
-    public Vehicle(Long id, String name, String plateNumber, String status, String type,
-                   float fuelCapacity, float carryingWeight, float totalWeight, java.util.List<Item> items) {
-        this.id = id;
+    public Vehicle(Long id, Long version, String name, String plateNumber, String status, String type,
+                   float fuelCapacity, float carryingWeight, float totalWeight, List<Item> items) {
+                    this.version = 0L;
+
+        this.version = version;
         this.name = name;
         this.plateNumber = plateNumber;
         this.status = status;
@@ -41,5 +44,4 @@ public class Vehicle {
         this.totalWeight = totalWeight;
         this.items = items;
     }
-
 }

@@ -24,4 +24,6 @@ public class ItemController {
         Item newItem = itemService.createItem(item);
         return ResponseEntity.ok(newItem);
     }
+
+
 }
