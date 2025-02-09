@@ -13,10 +13,6 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    
-    @Version
-    private Long version = 0L; // Optimistic locking field
-
     private String name;
     private String plateNumber;
     private String status;
@@ -28,13 +24,16 @@ public class Vehicle {
     @OneToMany
     private List<Item> items;
 
+    @Version
+    private Long version = 0L;
+
     public Vehicle() {}
 
-    public Vehicle(Long id, Long version, String name, String plateNumber, String status, String type,
+    public Vehicle(Long id, String name, String plateNumber, String status, String type,
                    float fuelCapacity, float carryingWeight, float totalWeight, List<Item> items) {
-                    this.version = 0L;
 
-        this.version = version;
+        this.version = 0L;
+        this.id = id;
         this.name = name;
         this.plateNumber = plateNumber;
         this.status = status;
@@ -43,5 +42,6 @@ public class Vehicle {
         this.carryingWeight = carryingWeight;
         this.totalWeight = totalWeight;
         this.items = items;
+       
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.mesh.delivery.Entity.Vehicle;
 import com.mesh.delivery.repositorys.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
