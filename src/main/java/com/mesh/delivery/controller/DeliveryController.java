@@ -63,32 +63,37 @@ public class DeliveryController {
     }
 
     @PostMapping("/add-item-to-vehicle")
-    public String postItem(Model model, @RequestParam Long itemId, @RequestParam String plateNumber) {
-        Vehicle vehicle = vehicleService.getVehicleByPlateNumber(plateNumber);
-        Item item = itemService.getItemById(itemId);
+public String postItem(Model model, @RequestParam Long itemId, @RequestParam String plateNumber) {
+    Vehicle vehicle = vehicleService.getVehicleByPlateNumber(plateNumber);
+    Item item = itemService.getItemById(itemId);
 
-        if (vehicle == null || item == null) {
-            model.addAttribute("message", "Vehicle or Item not found");
-            return "redirect:/create-vehicle";
-        }
-
-        float totalWeight = vehicle.getItems().stream().map(Item::getWeight).reduce(0f, Float::sum);
-        float remainingWeight = vehicle.getCarryingWeight() - totalWeight;
-        if (remainingWeight < item.getWeight()) {
-            model.addAttribute("message", "Item weight exceeds vehicle carrying weight");
-            return "redirect:/create-vehicle";
-        }
-
-        
-   
-        if ((totalWeight + item.getWeight()) <= vehicle.getCarryingWeight()) {
-            vehicle.getItems().add(item);
-            vehicleService.createVehicle(vehicle);
-            model.addAttribute("message", "Item added to vehicle successfully");
-        } else {
-            model.addAttribute("message", "Too much weight for this vehicle");
-        }
-
+    if (vehicle == null || item == null) {
+        model.addAttribute("message", "Vehicle or Item not found");
         return "redirect:/create-vehicle";
     }
+
+    // Calculate total weight of items currently in the vehicle
+    float totalWeight = vehicle.getItems().stream().map(Item::getWeight).reduce(0f, Float::sum);
+    float remainingWeight = vehicle.getCarryingWeight() - totalWeight;
+
+
+    model.addAttribute("remainingWeight", remainingWeight);
+
+    if (remainingWeight < item.getWeight()) {
+        model.addAttribute("message", "Item weight exceeds vehicle carrying weight");
+        return "redirect:/create-vehicle";
+    }
+
+
+    if ((totalWeight + item.getWeight()) <= vehicle.getCarryingWeight()) {
+        vehicle.getItems().add(item);
+        vehicleService.createVehicle(vehicle);
+        model.addAttribute("message", "Item added to vehicle successfully");
+    } else {
+        model.addAttribute("message", "Too much weight for this vehicle");
+    }
+
+    return "redirect:/create-vehicle";
+}
+
 }

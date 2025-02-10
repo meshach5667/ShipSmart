@@ -85,7 +85,7 @@
                                 </tbody>
                             </table>
                         </td>
-                        <td th:text="${vehicle.getTotalWeight}"></td>
+                        <td th:text="${vehicle.totalWeight}"></td>
                     </tr>
                 </tbody>
             </table>
@@ -109,19 +109,6 @@
     </section>
 
     <script src="@{/js/main.js}"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let flashMessage = document.getElementById("flashMessage");
-            if (flashMessage && flashMessage.innerText.trim() !== "") {
-                // Show the message
-                flashMessage.style.display = "block";
-    
-                // Hide the message after 3 seconds
-                setTimeout(() => {
-                    flashMessage.style.display = "none";
-                }, 3000);
-            }
-        });
-    </script>
+  
 </body>
 </html>
