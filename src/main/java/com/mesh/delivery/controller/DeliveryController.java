@@ -1,15 +1,16 @@
 package com.mesh.delivery.controller;
 
-
 import com.mesh.delivery.Entity.Vehicle;
 import com.mesh.delivery.service.ItemService;
 import com.mesh.delivery.Entity.Item;
 import com.mesh.delivery.service.VehicleService;
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class DeliveryController {
@@ -23,44 +24,71 @@ public class DeliveryController {
     }
 
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     @GetMapping("/about")
-    public String about(){
+    public String about() {
         return "about";
     }
 
     @GetMapping("/create-vehicle")
-    public String createVehicle(Model model){
-        Vehicle vehicle = new Vehicle();
-        model.addAttribute("vehicle", vehicle)
-                .addAttribute("allVehicles", vehicleService.getAllVehicles());
+    public String createVehicle(Model model) {
+        model.addAttribute("vehicle", new Vehicle());
+        model.addAttribute("allVehicles", vehicleService.getAllVehicles());
+        model.addAttribute("allItems", itemService.getAllItems());
         return "feature";
     }
 
     @PostMapping("/post-vehicle")
-    public String postVehicle(Model model, @ModelAttribute("vehicle") Vehicle vehicle){
-        String message = "Vehicle created successfully";
+    public String postVehicle(Model model, @ModelAttribute("vehicle") Vehicle vehicle) {
         vehicleService.createVehicle(vehicle);
-        model.addAttribute("message", message);
-        return "feature";
+        model.addAttribute("message", "Vehicle created successfully");
+        return "redirect:/create-vehicle";
     }
 
     @GetMapping("/create-item")
-    public String createItem(Model model){
-        Item item = new Item();
-        model.addAttribute("item", item)
-                .addAttribute("allItems", itemService.getAllItems());
+    public String createItem(Model model) {
+        model.addAttribute("item", new Item());
+        model.addAttribute("allItems", itemService.getAllItems());
         return "item";
     }
 
     @PostMapping("/post-item")
-    public String postItem(Model model, @ModelAttribute("item") Item item){
-        String message = "Item created successfully";
+    public String postItem(Model model, @ModelAttribute("item") Item item) {
         itemService.createItem(item);
-        model.addAttribute("message", message);
-        return "item";
+        model.addAttribute("message", "Item created successfully");
+        return "redirect:/create-item";
+    }
+
+    @PostMapping("/add-item-to-vehicle")
+    public String postItem(Model model, @RequestParam Long itemId, @RequestParam String plateNumber) {
+        Vehicle vehicle = vehicleService.getVehicleByPlateNumber(plateNumber);
+        Item item = itemService.getItemById(itemId);
+
+        if (vehicle == null || item == null) {
+            model.addAttribute("message", "Vehicle or Item not found");
+            return "redirect:/create-vehicle";
+        }
+
+        float totalWeight = vehicle.getItems().stream().map(Item::getWeight).reduce(0f, Float::sum);
+        float remainingWeight = vehicle.getCarryingWeight() - totalWeight;
+        if (remainingWeight < item.getWeight()) {
+            model.addAttribute("message", "Item weight exceeds vehicle carrying weight");
+            return "redirect:/create-vehicle";
+        }
+
+        
+   
+        if ((totalWeight + item.getWeight()) <= vehicle.getCarryingWeight()) {
+            vehicle.getItems().add(item);
+            vehicleService.createVehicle(vehicle);
+            model.addAttribute("message", "Item added to vehicle successfully");
+        } else {
+            model.addAttribute("message", "Too much weight for this vehicle");
+        }
+
+        return "redirect:/create-vehicle";
     }
 }

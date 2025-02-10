@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,12 @@
     <link rel="stylesheet" th:href="@{/styles/feature.css}">
     <link rel="stylesheet" th:href="@{/styles/global.css}">
 </head>
+
 <body>
     <nav th:replace="~{fragments/nav :: nav}"></nav>
 
+    <!-- Message Alert -->
+    <div id="flashMessage" th:if="${message}" th:text="${message}" class="flash-message"></div>
 
     <section class="vehicle-section">
         <div class="vehicle-form">
@@ -53,6 +57,7 @@
                         <th>Plate Number</th>
                         <th>Status</th>
                         <th>Items</th>
+                        <th>Remaining Weight</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +66,7 @@
                         <td th:text="${vehicle.name}"></td>
                         <td th:text="${vehicle.plateNumber}"></td>
                         <td th:text="${vehicle.status}"></td>
+                       
                         <td>
                             <table>
                                 <thead>
@@ -79,12 +85,43 @@
                                 </tbody>
                             </table>
                         </td>
+                        <td th:text="${vehicle.getTotalWeight}"></td>
                     </tr>
                 </tbody>
             </table>
+
+            <div class="add-item-form">
+                <h3>Add Item to Vehicle</h3>
+                <form method="post" th:action="@{/add-item-to-vehicle}" th:object="${item}">
+                    <label for="vehiclePlate">Select Vehicle</label>
+                    <select id="vehiclePlate" name="plateNumber">
+                        <option th:each="vehicle : ${allVehicles}" th:value="${vehicle.plateNumber}" th:text="${vehicle.name}"></option>
+                    </select>
+                    <label for="itemId">Select Item</label>
+                    <select id="itemId" name="itemId">
+                        <option th:each="item : ${allItems}" th:value="${item.id}" th:text="${item.name} + ' (' + ${item.code} + ')'"></option>
+                    </select>
+                    
+                    <button type="submit">Add Item</button>
+                </form>
+            </div>
         </div>
     </section>
 
     <script src="@{/js/main.js}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let flashMessage = document.getElementById("flashMessage");
+            if (flashMessage && flashMessage.innerText.trim() !== "") {
+                // Show the message
+                flashMessage.style.display = "block";
+    
+                // Hide the message after 3 seconds
+                setTimeout(() => {
+                    flashMessage.style.display = "none";
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>
