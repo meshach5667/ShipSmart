@@ -49,6 +49,17 @@ public class VehicleController {
         Vehicle vehicle = vehicleService.getVehicleByPlateNumber(plateNumber);
         List<Item> items = vehicle.getItems();
         float weightOnVehicle = 0;
+       
+         if (vehicle == null || item == null) {
+             return ResponseEntity.badRequest().body("Vehicle or Item not found");
+         }
+
+         float totalWeight = vehicle.getItems().stream().map(Item::getWeight).reduce(0f, Float::sum);
+         float remainingWeight = vehicle.getCarryingWeight() - totalWeight;
+         if (remainingWeight < item.getWeight()) {
+             return ResponseEntity.badRequest().body("Item weight is more than the remaining weight of the vehicle");
+         }
+        
 
         for (Item listItem : items) {
             weightOnVehicle += listItem.getWeight();

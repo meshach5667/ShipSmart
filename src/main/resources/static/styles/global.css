@@ -1,4 +1,4 @@
-/* Import modern fonts */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 body {
@@ -8,7 +8,7 @@ body {
     background-color: #f8fafc;
 }
 
-/* Modern Navbar Styling */
+
 nav {
     background-color: #ffffff;
     padding: 1rem 2rem;
@@ -125,7 +125,7 @@ nav a.active::after {
     }
 }
 
-/* Optional: Dark mode support */
+
 @media (prefers-color-scheme: dark) {
     nav {
         background-color: #1f2937;
@@ -151,4 +151,76 @@ nav a.active::after {
     .mobile-menu-button span {
         background-color: #f9fafb;
     }
+}
+.name {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-right: 20px;
+    color: #6fadeb;
+  
+}
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin: 20px;
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-section p,
+.footer-section ul {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin: 5px 0;
+}
+
+.footer-section ul li a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-section ul li a:hover {
+    color: #fff;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-links img {
+    width: 24px;
+    height: 24px;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 12px;
+    border-top: 1px solid #444;
+    padding-top: 10px;
 }

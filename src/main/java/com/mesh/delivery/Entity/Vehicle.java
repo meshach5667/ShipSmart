@@ -20,6 +20,16 @@ public class Vehicle {
     private float fuelCapacity;
     private float carryingWeight;
     private float totalWeight;
+   private Float remainingWeight;
+
+
+    public Float getRemainingWeight() {
+        return remainingWeight;
+    }
+
+    public void setRemainingWeight(Float remainingWeight) {
+        this.remainingWeight = remainingWeight;
+    }
 
     @OneToMany
     private List<Item> items;
@@ -28,6 +38,86 @@ public class Vehicle {
     private Long version = 0L;
 
     public Vehicle() {}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPlateNumber() {
+        return plateNumber;
+    }
+
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public float getFuelCapacity() {
+        return fuelCapacity;
+    }
+
+    public void setFuelCapacity(float fuelCapacity) {
+        this.fuelCapacity = fuelCapacity;
+    }
+
+    public float getCarryingWeight() {
+        return carryingWeight;
+    }
+
+    public void setCarryingWeight(float carryingWeight) {
+        this.carryingWeight = carryingWeight;
+    }
+
+    public float getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(float totalWeight) {
+        this.totalWeight = totalWeight;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 
     public Vehicle(Long id, String name, String plateNumber, String status, String type,
                    float fuelCapacity, float carryingWeight, float totalWeight, List<Item> items) {
