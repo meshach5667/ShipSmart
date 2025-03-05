@@ -20,16 +20,16 @@ public class Vehicle {
     private float fuelCapacity;
     private float carryingWeight;
     private float totalWeight;
-   private Float remainingWeight;
-
-
-    public Float getRemainingWeight() {
-        return remainingWeight;
-    }
-
-    public void setRemainingWeight(Float remainingWeight) {
-        this.remainingWeight = remainingWeight;
-    }
+//    @Column(nullable = false, columnDefinition = "FLOAT DEFAULT 0.0")
+//    private Float remainingWeight;
+//
+//    public Float getRemainingWeight() {
+//        return remainingWeight;
+//    }
+//
+//    public void setRemainingWeight(Float remainingWeight) {
+//        this.remainingWeight = remainingWeight;
+//    }
 
     @OneToMany
     private List<Item> items;

@@ -55,11 +55,11 @@ public class VehicleController {
          }
 
          float totalWeight = vehicle.getItems().stream().map(Item::getWeight).reduce(0f, Float::sum);
-         float remainingWeight = vehicle.getCarryingWeight() - totalWeight;
-         if (remainingWeight < item.getWeight()) {
-             return ResponseEntity.badRequest().body("Item weight is more than the remaining weight of the vehicle");
-         }
-        
+//         Float remainingWeight = vehicle.getCarryingWeight() - totalWeight;
+//         if (remainingWeight < item.getWeight()) {
+//             return ResponseEntity.badRequest().body("Item weight is more than the remaining weight of the vehicle");
+//         }
+//
 
         for (Item listItem : items) {
             weightOnVehicle += listItem.getWeight();

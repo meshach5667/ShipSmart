@@ -35,7 +35,7 @@
             <input
               type="text"
               id="weight"
-              th:field="*{weight}"
+              th:field="*{weight} "
               placeholder="Item Weight"
               required
             />
@@ -57,7 +57,7 @@
           <tbody>
             <tr th:each="item : ${allItems}">
               <td th:text="${item.name}">Item Name</td>
-              <td th:text="${item.weight}">Item Weight</td>
+              <td th:text="${item.weight}  + 'kg'">Item Weight</td>
               <td th:text="${item.code}">Item Code</td>
             </tr>
           </tbody>

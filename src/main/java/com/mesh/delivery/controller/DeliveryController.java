@@ -73,14 +73,21 @@ public class DeliveryController {
         }
 
         float totalWeight = vehicle.getItems().stream().map(Item::getWeight).reduce(0f, Float::sum);
-        float remainingWeight = vehicle.getCarryingWeight() - totalWeight;
+//        float remainingWeight = 0.0F;
+//        if (vehicle.getItems() != null && !vehicle.getItems().isEmpty()) {
+//            remainingWeight = vehicle.getItems().stream()
+//                    .map(Item::getWeight)
+//                    .reduce(0f, Float::sum);
+//        }
+//        vehicle.setRemainingWeight(remainingWeight);
 
-        model.addAttribute("remainingWeight", remainingWeight);
 
-        if (remainingWeight < item.getWeight()) {
-            model.addAttribute("message", "Item weight exceeds vehicle carrying weight");
-            return "redirect:/create-vehicle";
-        }
+//        model.addAttribute("remainingWeight", remainingWeight);
+//
+//        if (remainingWeight < item.getWeight()) {
+//            model.addAttribute("message", "Item weight exceeds vehicle carrying weight");
+//            return "redirect:/create-vehicle";
+//        }
 
         if ((totalWeight + item.getWeight()) <= vehicle.getCarryingWeight()) {
             vehicle.getItems().add(item);
