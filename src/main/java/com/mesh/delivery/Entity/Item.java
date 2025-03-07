@@ -1,5 +1,6 @@
 package com.mesh.delivery.Entity;
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,14 +43,17 @@ public class Item {
         this.weight = weight;
     }
 
+    
     public String getCode() {
         return code;
     }
 
+  
     public void setCode(String code) {
         this.code = code;
     }
 
+   
     public Item() {
         this.code = generateUniqueCode();
     }
